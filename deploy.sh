@@ -200,22 +200,23 @@ cd "$APP_DIR"
 
 # Build the application
 print_info "Building application..."
-dotnet build -v q
+# dotnet build -v q
 
 print_info "✓ Sample .NET application created with Dynatrace log integration!"
 
 print_info "Publishing .NET application..."
-dotnet publish -c Release -o ./publish -v q
+# dotnet publish -c Release -o ./publish -v q
 
 print_info "Creating deployment package..."
-cd publish
-# Use PowerShell Compress-Archive on Windows if zip is not available
-if command -v zip &> /dev/null; then
-    zip -r -q ../deploy.zip .
-else
-    powershell.exe -Command "Compress-Archive -Path * -DestinationPath ../deploy.zip -Force"
-fi
-cd ..
+
+# cd publish
+# # Use PowerShell Compress-Archive on Windows if zip is not available
+# if command -v zip &> /dev/null; then
+#     zip -r -q ../deploy.zip .
+# else
+#     powershell.exe -Command "Compress-Archive -Path * -DestinationPath ../deploy.zip -Force"
+# fi
+# cd ..
 
 print_info "Deploying to Azure App Service..."
 az webapp deployment source config-zip \
