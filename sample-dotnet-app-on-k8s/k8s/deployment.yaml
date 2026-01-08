@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapi-deployment
+  labels:
+    app: sampleapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sampleapi
+  template:
+    metadata:
+      labels:
+        app: sampleapi
+      annotations:
+        # Dynatrace annotations for automatic injection
+        dynatrace.com/inject: "true"
+        dynatrace.com/container-injection: "true"
+    spec:
+      containers:
+      - name: sampleapi
+        image: taloc/dynatrace:sampleapi
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: DT_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: dynatrace-config
+              key: endpoint
+        - name: DT_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: dynatrace-config
+              key: api-token
+        - name: WEBSITE_SITE_NAME
+          value: "sampleapi-aks"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sampleapi-service
+  labels:
+    app: sampleapi
+spec:
+  type: LoadBalancer
+  selector:
+    app: sampleapi
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http

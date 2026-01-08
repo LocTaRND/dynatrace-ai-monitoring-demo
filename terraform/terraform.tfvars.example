@@ -1,0 +1,39 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and update with your values
+# cp terraform.tfvars.example terraform.tfvars
+
+# Azure Subscription ID (get it from: az account show --query id -o tsv)
+subscription_id = ""  # Leave empty to use default subscription from az login
+
+# Azure Region
+location = "eastus"
+
+# Resource Group Name
+resource_group_name = "dynatrace-demo-rg"
+
+# Project Name (used for resource naming)
+project_name = "dynatrace-demo"
+
+# Environment (dev, staging, prod)
+environment = "dev"
+
+# VM Configuration
+vm_admin_username = "azureadmin"
+vm_admin_password = "YourSecurePassword123!"  # Must be at least 12 characters
+
+# AKS Configuration
+aks_dns_prefix = "dynatrace-demo"
+
+# PostgreSQL Configuration
+postgresql_server_name = ""  # Leave empty for auto-generated name
+postgresql_admin_username = "psqladmin"
+postgresql_admin_password = "YourSecureDbPassword123!"  # Must be at least 8 characters
+postgresql_db_name = "demoappdb"
+
+# Tags
+tags = {
+  Project     = "Dynatrace AI Monitoring"
+  ManagedBy   = "Terraform"
+  Environment = "dev"
+  Team        = "DevOps"
+}

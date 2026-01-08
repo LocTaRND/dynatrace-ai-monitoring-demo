@@ -1,0 +1,1 @@
+az provider register --namespace Microsoft.Compute --wait; az provider register --namespace Microsoft.Network --wait; az provider register --namespace Microsoft.ContainerRegistry --wait; az provider register --namespace Microsoft.ContainerService --wait; az provider register --namespace Microsoft.DBforPostgreSQL --wait; Write-Host "Providers registered successfully"

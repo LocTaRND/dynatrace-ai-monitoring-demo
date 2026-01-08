@@ -184,17 +184,38 @@ $RECYCLE.BIN/
 # Secrets and keys
 *.key
 *.pem
+*.pfx
+*.p12
 key.txt
 appsettings.local.json
 appsettings.*.local.json
 
 # Dynatrace
-dynatrace/
+**/dynakube.yaml
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+terraform.tfvars
+!terraform.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
 
 # Node modules (if any)
 node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
+yarn.lock
 
 # Logs
 logs/
@@ -203,20 +224,52 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+diagnostic_logs.zip
+debug-logs/
+debug-logs.zip
+webapp-logs.zip
 
 # Temporary files
 *.swp
 *.swo
 *~
 .tmp
+*.tmp
 
+# Deployment artifacts
+deploy.zip
+*.zip
+!*example*.zip
+
+# Scripts (if they contain secrets - be selective)
+# Uncomment specific scripts if they have hardcoded secrets
+# scripts/deploy*.sh
+# scripts/update.sh
 scripts/
-key.txt
+
+# Documentation build artifacts
 docs/*.py
 docs/*.html
+docs/__pycache__/
 
 # Sample .NET App specific
-sample-dotnet-app/bin/
-sample-dotnet-app/obj/
-sample-dotnet-app/publish/
-sample-dotnet-app/deploy.zip
+**/bin/
+**/obj/
+**/publish/
+**/deploy.zip
+
+# Kubernetes secrets (if contains actual tokens)
+**/k8s/*secret*.yaml
+!**/k8s/*secret*.yaml.example
+
+# Azure specific
+*.pubxml
+*.PublishSettings
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Deploy Local
+deploy-local.sh
