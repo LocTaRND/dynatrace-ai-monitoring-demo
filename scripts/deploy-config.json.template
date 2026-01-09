@@ -1,9 +1,0 @@
-{
-  "resourceGroup": "rg-dynatrace-demo",
-  "acrName": "acrdynatracedemo",
-  "aksName": "aks-dynatrace-demo",
-  "dynatraceEndpoint": "https://YOUR_ENVIRONMENT.live.dynatrace.com",
-  "dynatraceApiToken": "YOUR_API_TOKEN",
-  "location": "eastus",
-  "imageTag": "latest"
-}
